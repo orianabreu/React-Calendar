@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -6,42 +7,109 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import TimePicker from '../TimePicker';
+
+
+const useStyles = makeStyles((theme) => ({
+    container: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    textField: {
+      marginLeft: theme.spacing(0),
+      marginRight: theme.spacing(5),
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(2),
+      width: 200,
+    },
+  }));
 
 export default function FormDialog({open, setOpen}) {
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+    const [value, setValue] = useState({
+        title: '',
+        start: '',
+        end: ''
+    })
+
+    const classes = useStyles();
+    const { title, start, end } = value;
+
+    const handleClick = () => {
+        setValue({...value});
+        setOpen(false);
+        console.log(value);
+    }
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
   return (
     <div>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" handleClickOpen={handleClickOpen}>
-        <DialogTitle id="form-dialog-title">Añadir Cita</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Añade el motivo de tu cita y selecciona la hora de tu preferencia
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="title"
-            label="Título"
-            type="text"
-            fullWidth
-          />
-         
-          <TimePicker label='Hora de inicio'/>
-          <TimePicker label='Hora de fin'/>
-        </DialogContent>
+      <Dialog 
+        open={open} 
+        onClose={handleClose} 
+        handleClickOpen={handleClickOpen}
+        aria-labelledby="form-dialog-title"
+        >
+        <DialogTitle id="form-dialog-title">
+            Añadir Cita
+        </DialogTitle>
+            <DialogContent>
+            <DialogContentText>
+                Añade el motivo de tu cita y selecciona la hora de tu preferencia
+            </DialogContentText>
+                <TextField
+                    autoFocus
+                    margin="dense"
+                    id="title"
+                    label="Título"
+                    type="text"
+                    fullWidth
+                    value={title}
+                />
+            
+            <form className={classes.container} noValidate>
+                <TextField
+                    id="time"
+                    type="time"
+                    defaultValue="07:30"
+                    label='Hora de inicio'
+                    value={start}
+                    className={classes.textField}
+                    // InputLabelProps={{
+                    // shrink: true,
+                    // }}
+                    // inputProps={{
+                    // step: 300, // 5 min
+                    // }}
+                />
+                <TextField
+                    id="time"
+                    type="time"
+                    defaultValue="08:30"
+                    label='Hora de fin'
+                    value={end}
+                    className={classes.textField}
+                    // InputLabelProps={{
+                    // shrink: true,
+                    // }}
+                    // inputProps={{
+                    // step: 300, // 5 min
+                    // }}
+                />
+            </form>
+
+            </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancelar
           </Button>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClick} color="primary">
             Agendar
           </Button>
         </DialogActions>

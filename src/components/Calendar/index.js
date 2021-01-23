@@ -10,14 +10,7 @@ const localizer = momentLocalizer(moment);
 export default function MyCalendar({handleClickOpen}) {
 
     const [open, setOpen] = useState(false);
-    const [event, setEvent] = useState({
-        title: '',
-        start: '',
-        end: ''
-    })
-
-
-
+    
     const events = [
         {
           start: moment().toDate(),
@@ -40,7 +33,6 @@ export default function MyCalendar({handleClickOpen}) {
                 defaultView="month"
                 events={events}
                 style={{ height: "80vh", width: '80vw' }}
-                showMultiDayTimes='true'
                 onDrillDown={openModal}
 
                 views={{
@@ -59,6 +51,7 @@ export default function MyCalendar({handleClickOpen}) {
                 open={open} 
                 setOpen={setOpen}
             />
+           
       </div>
     );
 }
