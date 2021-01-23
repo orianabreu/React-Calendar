@@ -19,27 +19,26 @@ export default function FormDialog({open, setOpen}) {
   return (
     <div>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" handleClickOpen={handleClickOpen}>
-        <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle id="form-dialog-title">Añadir Cita</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
+            Añade el motivo de tu cita y selecciona la hora de tu preferencia
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
+            id="title"
+            label="Título"
+            type="text"
             fullWidth
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            Cancelar
           </Button>
           <Button onClick={handleClose} color="primary">
-            Subscribe
+            Agendar
           </Button>
         </DialogActions>
       </Dialog>
