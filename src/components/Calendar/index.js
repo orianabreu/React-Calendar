@@ -21,28 +21,37 @@ export default function MyCalendar({handleClickOpen}) {
         }
       ]
 
+    const onNavigate = () => {
+        setOpen(true);
+    }
+
     return (
-        <div className="App">
+        <div>
             <Calendar
-            localizer={localizer}
-            defaultDate={new Date()}
-            defaultView="month"
-            events={events}
-            style={{ height: "80vh", width: '80vw' }}
-            showMultiDayTimes='true'
-            views={{
-                month: true,
-              }}
-            messages={{
-                next: "sig",
-                previous: "ant",
-                today: "Hoy",
-                month: "Mes",
-                week: "Semana",
-                day: "Día"
-              }}
+                localizer={localizer}
+                defaultDate={new Date()}
+                defaultView="month"
+                events={events}
+                style={{ height: "80vh", width: '80vw' }}
+                showMultiDayTimes='true'
+                onNavigate={onNavigate}
+
+                views={{
+                    month: true,
+                }}
+
+                messages={{
+                    next: "sig",
+                    previous: "ant",
+                    today: "Hoy",
+                    month: "Mes"
+                }}
             />
-            <Modal handleClickOpen={handleClickOpen} open={open} setOpen={setOpen}/>
+            <Modal 
+                handleClickOpen={handleClickOpen} 
+                open={open} 
+                setOpen={setOpen}
+            />
       </div>
     );
 }
