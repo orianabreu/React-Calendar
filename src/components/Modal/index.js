@@ -37,6 +37,10 @@ export default function FormDialog({open, setOpen}) {
     const handleClick = () => {
         setValue({...value});
         setOpen(false);
+    }
+
+    const handleChange = event => {
+        setValue(event.target.value);
         console.log(value);
     }
 
@@ -70,6 +74,7 @@ export default function FormDialog({open, setOpen}) {
                     label="Título"
                     type="text"
                     fullWidth
+                    onChange={handleChange}
                     value={title}
                 />
             
@@ -80,13 +85,8 @@ export default function FormDialog({open, setOpen}) {
                     defaultValue="07:30"
                     label='Hora de inicio'
                     value={start}
+                    onChange={handleChange}
                     className={classes.textField}
-                    // InputLabelProps={{
-                    // shrink: true,
-                    // }}
-                    // inputProps={{
-                    // step: 300, // 5 min
-                    // }}
                 />
                 <TextField
                     id="time"
@@ -94,13 +94,8 @@ export default function FormDialog({open, setOpen}) {
                     defaultValue="08:30"
                     label='Hora de fin'
                     value={end}
+                    onChange={handleChange}
                     className={classes.textField}
-                    // InputLabelProps={{
-                    // shrink: true,
-                    // }}
-                    // inputProps={{
-                    // step: 300, // 5 min
-                    // }}
                 />
             </form>
 
