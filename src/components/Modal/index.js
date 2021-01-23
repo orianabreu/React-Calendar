@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import TimePicker from '../TimePicker';
 
 export default function FormDialog({open, setOpen}) {
   const handleClickOpen = () => {
@@ -32,6 +33,9 @@ export default function FormDialog({open, setOpen}) {
             type="text"
             fullWidth
           />
+         
+          <TimePicker label='Hora de inicio'/>
+          <TimePicker label='Hora de fin'/>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
