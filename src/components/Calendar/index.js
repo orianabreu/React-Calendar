@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import Modal from '../Modal';
 require('moment/locale/es.js');
 
 const localizer = momentLocalizer(moment);
 
-export default function MyCalendar() {
+export default function MyCalendar({handleClickOpen}) {
+
+    const [open, setOpen] = useState(false);
 
     const events = [
         {
@@ -26,6 +29,10 @@ export default function MyCalendar() {
             defaultView="month"
             events={events}
             style={{ height: "80vh", width: '80vw' }}
+            showMultiDayTimes='true'
+            views={{
+                month: true,
+              }}
             messages={{
                 next: "sig",
                 previous: "ant",
@@ -35,6 +42,7 @@ export default function MyCalendar() {
                 day: "Día"
               }}
             />
+            <Modal handleClickOpen={handleClickOpen} open={open} setOpen={setOpen}/>
       </div>
     );
 }
