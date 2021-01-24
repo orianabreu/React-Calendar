@@ -7,13 +7,23 @@ require('moment/locale/es.js');
 
 const localizer = momentLocalizer(moment);
 
-export default function MyCalendar({handleClickOpen}) {
+export default function MyCalendar() {
 
     const [open, setOpen] = useState(false);
+    const [selectedDate, setSelectedDate] = useState();
     
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState([
+        {
+            start: moment().toDate(),
+            end: moment()
+              .add(1, "days")
+              .toDate(),
+            title: "Some title"
+        }
+    ]);
 
-    const openModal = () => {
+    const openModal = (date) => {
+        setSelectedDate(date);
         setOpen(true);
     }
 
@@ -43,10 +53,10 @@ export default function MyCalendar({handleClickOpen}) {
                 }}
             />
             <Modal 
-                handleClickOpen={handleClickOpen} 
                 open={open} 
                 setOpen={setOpen}
                 createEvent={createEvent}
+                selectedDate={selectedDate}
             />
            
       </div>

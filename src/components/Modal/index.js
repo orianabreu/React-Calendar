@@ -7,6 +7,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import moment from 'moment';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -23,8 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function FormDialog({open, setOpen, createEvent}) {
-
+export default function FormDialog({open, setOpen, createEvent, selectedDate}) {
     const [value, setValue] = useState({
         title: '',
         start: '',
@@ -35,9 +35,11 @@ export default function FormDialog({open, setOpen, createEvent}) {
     const { title, start, end } = value;
 
     const handleClick = () => {
+      console.log(value);
         setValue({...value});
         setOpen(false);
         createEvent(value);
+        setValue('');
     }
 
     const handleChange = event => {
@@ -45,26 +47,23 @@ export default function FormDialog({open, setOpen, createEvent}) {
 
       setValue((prevValue) => ({
         ...prevValue,
-        [name]: value
+        [name]: name === 'title' ? value : moment(selectedDate).hour('1').toDate()
       }));
       
     }
-    console.log(value);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
 
     const handleClose = () => {
         setOpen(false);
     };
+
+    console.log();
 
   return (
     <div>
       <Dialog 
         open={open} 
         onClose={handleClose} 
-        handleClickOpen={handleClickOpen}
         aria-labelledby="form-dialog-title"
         >
         <DialogTitle id="form-dialog-title">
@@ -88,21 +87,19 @@ export default function FormDialog({open, setOpen, createEvent}) {
             
             <form className={classes.container} noValidate>
                 <TextField
-                    id="time"
+                    id="start"
                     type="time"
-                    defaultValue="07:30"
                     label='Hora de inicio'
-                    value={start}
+                    value={moment(start).format('HH:mm')}
                     name='start'
                     onChange={handleChange}
                     className={classes.textField}
                 />
                 <TextField
-                    id="time"
+                    id="end"
                     type="time"
-                    defaultValue="08:30"
                     label='Hora de fin'
-                    value={end}
+                    value={moment(end).format('HH:mm')}
                     name='end'
                     onChange={handleChange}
                     className={classes.textField}
