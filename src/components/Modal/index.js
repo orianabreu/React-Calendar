@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function FormDialog({open, setOpen}) {
+export default function FormDialog({open, setOpen, createEvent}) {
 
     const [value, setValue] = useState({
         title: '',
@@ -37,12 +37,19 @@ export default function FormDialog({open, setOpen}) {
     const handleClick = () => {
         setValue({...value});
         setOpen(false);
+        createEvent(value);
     }
 
     const handleChange = event => {
-        setValue(event.target.value);
-        console.log(value);
+      const { name, value } = event.target;
+
+      setValue((prevValue) => ({
+        ...prevValue,
+        [name]: value
+      }));
+      
     }
+    console.log(value);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -74,6 +81,7 @@ export default function FormDialog({open, setOpen}) {
                     label="Título"
                     type="text"
                     fullWidth
+                    name='title'
                     onChange={handleChange}
                     value={title}
                 />
@@ -85,6 +93,7 @@ export default function FormDialog({open, setOpen}) {
                     defaultValue="07:30"
                     label='Hora de inicio'
                     value={start}
+                    name='start'
                     onChange={handleChange}
                     className={classes.textField}
                 />
@@ -94,6 +103,7 @@ export default function FormDialog({open, setOpen}) {
                     defaultValue="08:30"
                     label='Hora de fin'
                     value={end}
+                    name='end'
                     onChange={handleChange}
                     className={classes.textField}
                 />

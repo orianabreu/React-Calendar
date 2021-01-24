@@ -11,18 +11,14 @@ export default function MyCalendar({handleClickOpen}) {
 
     const [open, setOpen] = useState(false);
     
-    const events = [
-        {
-          start: moment().toDate(),
-          end: moment()
-            .add(1, "days")
-            .toDate(),
-          title: "Some title"
-        }
-      ]
+    const [events, setEvents] = useState([]);
 
     const openModal = () => {
         setOpen(true);
+    }
+
+    const createEvent = (value) => {
+        setEvents([...events, value])
     }
 
     return (
@@ -50,6 +46,7 @@ export default function MyCalendar({handleClickOpen}) {
                 handleClickOpen={handleClickOpen} 
                 open={open} 
                 setOpen={setOpen}
+                createEvent={createEvent}
             />
            
       </div>
