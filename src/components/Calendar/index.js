@@ -12,15 +12,7 @@ export default function MyCalendar() {
     const [open, setOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState();
     
-    const [events, setEvents] = useState([
-        {
-            start: moment().toDate(),
-            end: moment()
-              .add(1, "days")
-              .toDate(),
-            title: "Some title"
-        }
-    ]);
+    const [events, setEvents] = useState([]);
 
     const openModal = (date) => {
         setSelectedDate(date);

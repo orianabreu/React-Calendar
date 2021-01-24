@@ -35,23 +35,29 @@ export default function FormDialog({open, setOpen, createEvent, selectedDate}) {
     const { title, start, end } = value;
 
     const handleClick = () => {
-      console.log(value);
-        setValue({...value});
         setOpen(false);
         createEvent(value);
-        setValue('');
+        setValue({
+          title: '',
+          start: '',
+          end: ''
+      });
     }
 
     const handleChange = event => {
       const { name, value } = event.target;
 
+      const hoursAndMinutes = value.split(':');
+
+      console.log(hoursAndMinutes);
+
       setValue((prevValue) => ({
         ...prevValue,
-        [name]: name === 'title' ? value : moment(selectedDate).hour('1').toDate()
+        [name]: name === 'title' ? value : moment(selectedDate).hour(Number(hoursAndMinutes[0])).minutes(Number(hoursAndMinutes[1])).toDate()
       }));
       
     }
-
+    console.log(value);
 
     const handleClose = () => {
         setOpen(false);
