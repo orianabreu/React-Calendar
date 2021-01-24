@@ -3,8 +3,8 @@ import MyCalendar from './components/Calendar';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello</h1>
+    <div className='App'>
+      <h1 className='mainTitle'>Mi Calendario</h1>
       <MyCalendar />
     </div>
   );

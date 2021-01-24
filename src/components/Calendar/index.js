@@ -1,40 +1,59 @@
-import React from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import React, { useState } from 'react';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import Modal from '../Modal';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import useStyles from './styles';
 require('moment/locale/es.js');
 
 const localizer = momentLocalizer(moment);
 
 export default function MyCalendar() {
 
-    const events = [
-        {
-          start: moment().toDate(),
-          end: moment()
-            .add(1, "days")
-            .toDate(),
-          title: "Some title"
-        }
-      ]
+    const {calendar} = useStyles();
+
+    const [open, setOpen] = useState(false);
+
+    const [selectedDate, setSelectedDate] = useState();
+    
+    const [events, setEvents] = useState([]);
+
+    const openModal = (date) => {
+        setSelectedDate(date);
+        setOpen(true);
+    }
+
+    const createEvent = (value) => {
+        setEvents([...events, value])
+    }
 
     return (
-        <div className="App">
+        <>
             <Calendar
-            localizer={localizer}
-            defaultDate={new Date()}
-            defaultView="month"
-            events={events}
-            style={{ height: "80vh", width: '80vw' }}
-            messages={{
-                next: "sig",
-                previous: "ant",
-                today: "Hoy",
-                month: "Mes",
-                week: "Semana",
-                day: "Día"
-              }}
+                localizer={localizer}
+                defaultDate={new Date()}
+                defaultView="month"
+                events={events}
+                className={calendar}
+                onDrillDown={openModal}
+
+                views={{
+                    month: true,
+                }}
+
+                messages={{
+                    next: ">>",
+                    previous: "<<",
+                    today: "Hoy",
+                    month: "Mes"
+                }}
             />
-      </div>
+            <Modal 
+                open={open} 
+                setOpen={setOpen}
+                createEvent={createEvent}
+                selectedDate={selectedDate}
+            />     
+      </>
     );
 }
